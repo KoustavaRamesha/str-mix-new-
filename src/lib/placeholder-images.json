@@ -1,0 +1,166 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-homepage",
+      "description": "A large construction site at sunset, showing the scale of a project.",
+      "imageUrl": "https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb25zdHJ1Y3Rpb24lMjBzaXRlfGVufDB8fHx8MTc2MjEzNDM4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "construction site"
+    },
+    {
+      "id": "service-boom-pump",
+      "description": "A concrete boom pump truck extending its arm over a building foundation.",
+      "imageUrl": "https://images.unsplash.com/photo-1708881050964-4bfdee38940a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb25jcmV0ZSUyMHB1bXB8ZW58MHx8fHwxNzYyMjA2NTE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete pump"
+    },
+    {
+      "id": "service-boom-pump-small",
+      "description": "Close up of a concrete boom pump truck.",
+      "imageUrl": "https://images.unsplash.com/photo-1695327057610-3821e847601d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb25jcmV0ZSUyMHRydWNrfGVufDB8fHx8MTc2MjIwNjUxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete truck"
+    },
+    {
+      "id": "gallery-preview-1",
+      "description": "STR MIX completed construction project showcasing quality workmanship.",
+      "imageUrl": "/pictures/2025-04-22.webp",
+      "imageHint": "completed project"
+    },
+    {
+      "id": "gallery-preview-2",
+      "description": "STR MIX project delivery excellence in action.",
+      "imageUrl": "/pictures/2025-04-22 (1).webp",
+      "imageHint": "project delivery"
+    },
+    {
+      "id": "gallery-preview-3",
+      "description": "Professional concrete installation by STR MIX team.",
+      "imageUrl": "/pictures/unnamed.webp",
+      "imageHint": "concrete installation"
+    },
+    {
+      "id": "gallery-preview-4",
+      "description": "STR MIX concrete solutions for modern construction needs.",
+      "imageUrl": "/pictures/unnamed (1).jpg",
+      "imageHint": "construction solutions"
+    },
+    {
+      "id": "gallery-1",
+      "description": "Advanced concrete mixing equipment at STR MIX production facility.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 201855.png",
+      "imageHint": "mixing equipment"
+    },
+    {
+      "id": "gallery-2",
+      "description": "STR MIX concrete products ready for delivery to construction sites.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 201930.png",
+      "imageHint": "concrete products"
+    },
+    {
+      "id": "gallery-3",
+      "description": "STR MIX inauguration ceremony celebrating the newly rebranded concrete company.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 201942.png",
+      "imageHint": "inauguration ceremony"
+    },
+    {
+      "id": "gallery-4",
+      "description": "STR MIX rebranding celebration and inauguration event highlights.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 202000.png",
+      "imageHint": "rebranding celebration"
+    },
+    {
+      "id": "gallery-5",
+      "description": "STR MIX inauguration ceremony guests and stakeholders celebrating the rebrand.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 202011.png",
+      "imageHint": "inauguration guests"
+    },
+    {
+      "id": "gallery-6",
+      "description": "Quality control inspection of concrete mix at STR MIX facility.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 202026.png",
+      "imageHint": "quality control"
+    },
+    {
+      "id": "gallery-7",
+      "description": "STR MIX concrete used in large-scale infrastructure development.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 202338.png",
+      "imageHint": "infrastructure"
+    },
+    {
+      "id": "gallery-8",
+      "description": "Modern concrete production technology at STR MIX manufacturing plant.",
+      "imageUrl": "/pictures/Screenshot 2025-10-31 202310.png",
+      "imageHint": "production technology"
+    },
+    {
+      "id": "product-standard-lean",
+      "description": "Freshly poured lean concrete for a sub-base.",
+      "imageUrl": "https://images.unsplash.com/photo-1650460533962-601b36580ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb25jcmV0ZSUyMGJhc2V8ZW58MHx8fHwxNzYyMjA3MDc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete base"
+    },
+    {
+      "id": "product-standard-patio",
+      "description": "A newly laid concrete patio.",
+      "imageUrl": "https://images.unsplash.com/photo-1547282183-68be9f696735?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb25jcmV0ZSUyMHBhdGlvfGVufDB8fHx8MTc2MjIwNzA3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete patio"
+    },
+    {
+      "id": "product-standard-light-foundations",
+      "description": "Lightweight concrete foundation for a domestic extension.",
+      "imageUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxob3VzZSUyMGZvdW5kYXRpb258ZW58MHx8fHwxNzYyMTkxOTkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "house foundation"
+    },
+    {
+      "id": "product-standard-foundations",
+      "description": "Concrete being poured into foundation trenches for a new house.",
+      "imageUrl": "https://images.unsplash.com/photo-1574757987642-5755f0839101?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwb3VyaW5nJTIwY29uY3JldGV8ZW58MHx8fHwxNzYyMjA3MDc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pouring concrete"
+    },
+    {
+      "id": "product-standard-multipurpose",
+      "description": "A versatile slab of concrete for general use.",
+      "imageUrl": "https://images.unsplash.com/photo-1547804550-b970052d6825?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb25jcmV0ZSUyMHNsYWJ8ZW58MHx8fHwxNzYyMjA3MDc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete slab"
+    },
+    {
+      "id": "product-standard-roadway",
+      "description": "A new concrete roadway being paved.",
+      "imageUrl": "https://images.unsplash.com/photo-1591486085897-f433f05e7aed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyb2FkJTIwY29uc3RydWN0aW9ufGVufDB8fHx8MTc2MjIwNzA3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "road construction"
+    },
+    {
+      "id": "product-standard-commercial",
+      "description": "Large concrete floor of a commercial building during construction.",
+      "imageUrl": "https://images.unsplash.com/photo-1429497419816-9ca5cfb4571a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9ufGVufDB8fHx8MTc2MjIwNzA3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "commercial construction"
+    },
+    {
+      "id": "product-standard-structural",
+      "description": "Large concrete support beams for a high-rise building.",
+      "imageUrl": "https://images.unsplash.com/photo-1761158494857-7101d3036e32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb25jcmV0ZSUyMGJlYW1zfGVufDB8fHx8MTc2MjIwNzA3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete beams"
+    },
+    {
+      "id": "product-standard-prestressed",
+      "description": "Pre-stressed concrete beams waiting for installation.",
+      "imageUrl": "https://images.unsplash.com/photo-1711618734250-ad5951b1f17d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb25jcmV0ZSUyMGdpcmRlcnN8ZW58MHx8fHwxNzYyMjA3MDc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete girders"
+    },
+    {
+      "id": "product-standard-ultra-high-strength",
+      "description": "A massive concrete dam structure showcasing durability.",
+      "imageUrl": "https://images.unsplash.com/photo-1705442200932-3705f45ab758?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb25jcmV0ZSUyMGRhbXxlbnwwfHx8fDE3NjIxNjE4OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concrete dam"
+    },
+    {
+      "id": "product-reinforced-light",
+      "description": "A house floor with steel rebar before concrete is poured.",
+      "imageUrl": "https://images.unsplash.com/photo-1658927419549-8946cd8d33c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZWJhciUyMGZsb29yfGVufDB8fHx8MTc2MjIwNzA3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "rebar floor"
+    },
+    {
+      "id": "product-reinforced-heavy",
+      "description": "Thick steel reinforcement for a heavy-duty commercial foundation.",
+      "imageUrl": "https://images.unsplash.com/photo-1498457349504-289ee698e52c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdGVlbCUyMHJlaW5mb3JjZW1lbnR8ZW58MHx8fHwxNzYyMjA3MDc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "steel reinforcement"
+    }
+  ]
+}

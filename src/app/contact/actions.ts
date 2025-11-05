@@ -1,0 +1,85 @@
+'use server';
+
+import { z } from 'zod';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters.'),
+  email: z.string().email('Invalid email address.'),
+  phone: z.string().optional(),
+  subject: z.string().min(3, 'Subject must be at least 3 characters.'),
+  message: z.string().min(10, 'Message must be at least 10 characters.'),
+});
+
+const reviewSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters.'),
+  rating: z.coerce.number().min(1, "Please select a rating.").max(5),
+  review: z.string().min(10, 'Review must be at least 10 characters.'),
+});
+
+type FormState = {
+  message: string;
+  success: boolean;
+  errors?: Record<string, string[] | undefined>;
+};
+
+export async function handleContactSubmission(
+  prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
+  const validatedFields = contactSchema.safeParse(Object.fromEntries(formData.entries()));
+
+  if (!validatedFields.success) {
+    return {
+      message: 'Validation failed. Please check your input.',
+      success: false,
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+  
+  // In a real application, you would send an email, save to a database, etc.
+  console.log('New Contact Inquiry:', validatedFields.data);
+
+  return { message: 'Thank you for your inquiry! We will get back to you shortly.', success: true };
+}
+
+export async function handleReviewSubmission(
+  prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
+    const validatedFields = reviewSchema.safeParse(Object.fromEntries(formData.entries()));
+
+  if (!validatedFields.success) {
+    return {
+      message: 'Validation failed. Please check your input.',
+      success: false,
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    // Read current reviews
+    const reviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
+    const reviewsData = await fs.readFile(reviewsPath, 'utf-8');
+    const reviews = JSON.parse(reviewsData);
+
+    // Add new review
+    const newReview = {
+      quote: validatedFields.data.review,
+      author: validatedFields.data.name,
+      rating: validatedFields.data.rating
+    };
+    reviews.push(newReview);
+
+    // Write back to file
+    await fs.writeFile(reviewsPath, JSON.stringify(reviews, null, 2));
+
+    console.log('New Review Submitted:', validatedFields.data);
+
+    return { message: 'Thank you for your review! It will appear on our homepage shortly.', success: true };
+  } catch (error) {
+    console.error('Error saving review:', error);
+    return { message: 'There was an error submitting your review. Please try again.', success: false };
+  }
+}
