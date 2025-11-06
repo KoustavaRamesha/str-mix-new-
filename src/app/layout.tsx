@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   title: 'STR MIX Concrete Solutions',
   description: 'High-quality ready-mix concrete and boom pump services.',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   }
 };
 
