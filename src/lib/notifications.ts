@@ -13,13 +13,17 @@ export interface ContactData {
 
 export async function sendContactEmail(contactData: ContactData): Promise<boolean> {
   if (!resend) {
+    console.error('Resend not initialized - check API key');
     return false;
   }
 
   const { name, email, phone, subject, message } = contactData;
 
   try {
-    await resend.emails.send({
+    console.log('Attempting to send email via Resend...');
+    console.log('To:', process.env.EMAIL_TO || 'contact@strmix.com');
+
+    const result = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: process.env.EMAIL_TO || 'contact@strmix.com',
       subject: `STR MIX Contact Form: ${subject}`,
@@ -43,9 +47,12 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
         </div>
       `,
     });
+
+    console.log('Resend API response:', result);
     return true;
   } catch (error) {
     console.error('Email send failed:', error);
+    console.error('Error details:', error instanceof Error ? error.message : String(error));
     return false;
   }
 }
