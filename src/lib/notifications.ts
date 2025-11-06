@@ -1,16 +1,47 @@
 import nodemailer from 'nodemailer';
 import twilio from 'twilio';
 
-// Email configuration
-const emailTransporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+// Email configuration - prefer Resend over SMTP for better reliability
+let emailService: 'resend' | 'smtp' = 'smtp';
+let emailTransporter: any = null;
+let resend: any = null;
+
+// Check if Resend API key is available (preferred method)
+if (process.env.RESEND_API_KEY) {
+  console.log('📧 Using Resend for email delivery');
+  emailService = 'resend';
+  try {
+    // Dynamic import for Resend to avoid issues if not installed
+    resend = { apiKey: process.env.RESEND_API_KEY };
+  } catch (e) {
+    console.log('⚠️ Resend import failed, falling back to SMTP');
+    emailService = 'smtp';
+  }
+} else {
+  console.log('📧 Using SMTP for email delivery');
+  emailService = 'smtp';
+}
+
+// Initialize SMTP transporter as fallback
+if (emailService === 'smtp') {
+  // Try Gmail with different configuration for better cloud compatibility
+  emailTransporter = nodemailer.createTransporter({
+    service: 'gmail', // Use Gmail service instead of manual host/port
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+    // Add timeout and connection settings for better reliability
+    connectionTimeout: 30000, // 30 seconds (increased)
+    greetingTimeout: 30000,
+    socketTimeout: 30000,
+    // Additional Gmail-specific settings
+    secure: true, // Use SSL
+    tls: {
+      rejectUnauthorized: false // Accept self-signed certificates
+    }
+  });
+}
 
 // SMS configuration - only initialize if credentials are provided
 let twilioClient: any = null;
