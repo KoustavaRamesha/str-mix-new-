@@ -32,6 +32,13 @@ export interface ContactData {
 
 export async function sendContactEmail(contactData: ContactData): Promise<boolean> {
   try {
+    console.log('🔍 Checking environment variables...');
+    console.log('SMTP_HOST:', process.env.SMTP_HOST ? '✅ Set' : '❌ Missing');
+    console.log('SMTP_USER:', process.env.SMTP_USER ? '✅ Set' : '❌ Missing');
+    console.log('SMTP_PASS:', process.env.SMTP_PASS ? '✅ Set' : '❌ Missing');
+    console.log('EMAIL_FROM:', process.env.EMAIL_FROM || 'noreply@strmix.com');
+    console.log('EMAIL_TO:', process.env.EMAIL_TO || 'contact@strmix.com');
+
     const { name, email, phone, subject, message } = contactData;
 
     const mailOptions = {
@@ -59,11 +66,13 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
       `,
     };
 
+    console.log('📧 Attempting to send email...');
     await emailTransporter.sendMail(mailOptions);
     console.log('✅ Contact email sent successfully');
     return true;
   } catch (error) {
     console.error('❌ Failed to send contact email:', error);
+    console.error('Error details:', error.message);
     return false;
   }
 }
