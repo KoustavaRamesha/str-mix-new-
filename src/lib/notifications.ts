@@ -6,6 +6,8 @@ let emailService: 'resend' | 'smtp' = 'smtp';
 let emailTransporter: any = null;
 let resend: any = null;
 
+// Force rebuild trigger - version 1.1
+
 // Check if Resend API key is available (preferred method)
 if (process.env.RESEND_API_KEY) {
   console.log('📧 Using Resend for email delivery');
