@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { sendContactNotification } from '@/lib/notifications';
+import { sendContactEmail } from '@/lib/notifications';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -40,21 +40,21 @@ export async function handleContactSubmission(
   }
 
   try {
-    // Send email and SMS notifications
-    const notificationResult = await sendContactNotification(validatedFields.data);
+    // Send email notification
+    const emailSent = await sendContactEmail(validatedFields.data);
 
     console.log('New Contact Inquiry:', validatedFields.data);
-    console.log('Notifications sent - Email:', notificationResult.emailSent, 'SMS:', notificationResult.smsSent);
+    console.log('Email sent:', emailSent);
 
-    // Return appropriate message based on notification success
-    if (notificationResult.emailSent) {
+    // Return appropriate message based on email success
+    if (emailSent) {
       return {
         message: 'Thank you for your inquiry! We have received your message and will get back to you shortly.',
         success: true
       };
     } else {
       return {
-        message: 'Your message was received, but there was an issue sending notifications. Please try again or contact us directly.',
+        message: 'Your message was received, but there was an issue sending the email. Please try again or contact us directly.',
         success: false
       };
     }
