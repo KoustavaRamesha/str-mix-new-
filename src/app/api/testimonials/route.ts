@@ -10,9 +10,21 @@ export type Testimonial = {
 
 export async function GET() {
   try {
-    const reviewsPath = path.resolve('src/lib/reviews.json');
-    const reviewsData = await fs.readFile(reviewsPath, 'utf-8');
-    const testimonials: Testimonial[] = JSON.parse(reviewsData);
+    let testimonials: Testimonial[] = [];
+
+    // Try to read from the writable reviews file first (production)
+    try {
+      const reviewsPath = path.resolve('reviews.json');
+      const reviewsData = await fs.readFile(reviewsPath, 'utf-8');
+      testimonials = JSON.parse(reviewsData);
+    } catch (writableError) {
+      // Fall back to the default reviews file (development/initial state)
+      console.log('Writable reviews file not found, using default reviews');
+      const defaultReviewsPath = path.resolve('src/lib/reviews.json');
+      const defaultData = await fs.readFile(defaultReviewsPath, 'utf-8');
+      testimonials = JSON.parse(defaultData);
+    }
+
     return NextResponse.json(testimonials);
   } catch (error) {
     console.error('Error reading testimonials:', error);

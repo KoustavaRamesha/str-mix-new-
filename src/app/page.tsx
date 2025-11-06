@@ -46,10 +46,20 @@ export default async function Home() {
       try {
         const fs = await import('fs/promises');
         const path = await import('path');
-        const reviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
-        const data = await fs.readFile(reviewsPath, 'utf-8');
-        testimonials = JSON.parse(data);
-        console.log('Fallback successful, loaded testimonials:', testimonials.length);
+
+        // Try production reviews file first
+        let reviewsPath = path.join(process.cwd(), 'reviews.json');
+        try {
+          const data = await fs.readFile(reviewsPath, 'utf-8');
+          testimonials = JSON.parse(data);
+          console.log('API fallback successful, loaded testimonials:', testimonials.length);
+        } catch (prodError) {
+          // Fall back to development reviews file
+          reviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
+          const data = await fs.readFile(reviewsPath, 'utf-8');
+          testimonials = JSON.parse(data);
+          console.log('API fallback successful, loaded testimonials:', testimonials.length);
+        }
       } catch (fallbackError) {
         console.error('Fallback also failed:', fallbackError);
       }
@@ -60,10 +70,20 @@ export default async function Home() {
     try {
       const fs = await import('fs/promises');
       const path = await import('path');
-      const reviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
-      const data = await fs.readFile(reviewsPath, 'utf-8');
-      testimonials = JSON.parse(data);
-      console.log('Fallback successful, loaded testimonials:', testimonials.length);
+
+      // Try production reviews file first
+      let reviewsPath = path.join(process.cwd(), 'reviews.json');
+      try {
+        const data = await fs.readFile(reviewsPath, 'utf-8');
+        testimonials = JSON.parse(data);
+        console.log('Production fallback successful, loaded testimonials:', testimonials.length);
+      } catch (prodError) {
+        // Fall back to development reviews file
+        reviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
+        const data = await fs.readFile(reviewsPath, 'utf-8');
+        testimonials = JSON.parse(data);
+        console.log('Development fallback successful, loaded testimonials:', testimonials.length);
+      }
     } catch (fallbackError) {
       console.error('Fallback also failed:', fallbackError);
     }
@@ -123,9 +143,11 @@ export default async function Home() {
               <p className="mt-2 text-muted-foreground text-justify">
                 As a 24/7 service provider, STR Mix stands ready around the clock to support your projects whenever you need us. Because at STR Mix, your vision is our foundation — and quality is our promise.
               </p>
-              <Button asChild variant="outline" className="mt-8">
-                <Link href="/about">Learn More About Our Story</Link>
-              </Button>
+              <div className="text-center mt-8">
+                <Button asChild variant="outline">
+                  <Link href="/about">Learn More About Our Story</Link>
+                </Button>
+              </div>
             </div>
             <div className='order-1 lg:order-2 grid grid-cols-2 gap-4'>
                 <div className="flex flex-col items-center justify-center p-6 bg-background rounded-lg text-center shadow">
