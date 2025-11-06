@@ -1,5 +1,5 @@
 import { Logo } from './logo';
-import { Phone, MapPin, Instagram } from 'lucide-react';
+import { Phone, MapPin, Instagram, Mail } from 'lucide-react';
 import Link from 'next/link';
 
 export function Footer() {
@@ -24,6 +24,10 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 flex-shrink-0" />
                 <a href="tel:09741499909" className="hover:text-primary">09741499909</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4 flex-shrink-0" />
+                <a href="mailto:strmixconcrete@gmail.com" className="hover:text-primary">strmixconcrete@gmail.com</a>
               </li>
             </ul>
           </div>
