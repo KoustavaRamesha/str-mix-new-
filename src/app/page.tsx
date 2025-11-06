@@ -123,7 +123,7 @@ export default async function Home() {
             <div className='order-1 lg:order-2 grid grid-cols-2 gap-4'>
                 <div className="flex flex-col items-center justify-center p-6 bg-background rounded-lg text-center shadow">
                     <Image
-                        src="/tulsi-logo.jpg"
+                        src="/tulsi.png"
                         alt="Tulsi Concretes Logo"
                         width={120}
                         height={60}

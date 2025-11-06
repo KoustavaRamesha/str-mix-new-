@@ -8,7 +8,7 @@ function OldLogo() {
     return (
         <div className='flex items-center gap-2 font-headline text-2xl font-black tracking-tighter text-foreground/70 transition-opacity hover:opacity-80'>
             <Image
-                src="/tulsi-logo.jpg"
+                src="/tulsi.png"
                 alt="Tulsi Concretes Logo"
                 width={120}
                 height={60}
