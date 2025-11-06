@@ -25,67 +25,38 @@ export default async function Home() {
   const galleryImages = PlaceHolderImages.filter(p => p.id.startsWith('gallery-preview'));
 
   let testimonials: Testimonial[] = [];
+
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:9002'}/api/testimonials`;
-    console.log('Fetching testimonials from:', apiUrl);
-
-    const response = await fetch(apiUrl, {
-      cache: 'no-store' // Ensure fresh data on each request
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:9002'}/api/testimonials`, {
+      cache: 'no-store'
     });
-
-    console.log('API response status:', response.status);
 
     if (response.ok) {
       testimonials = await response.json();
-      console.log('Fetched testimonials count:', testimonials.length);
-    } else {
-      const errorText = await response.text();
-      console.error('API error response:', errorText);
-      // Fallback to direct file read for debugging
-      console.log('Falling back to direct file read...');
-      try {
-        const fs = await import('fs/promises');
-        const path = await import('path');
-
-        // Try production reviews file first
-        let reviewsPath = path.join(process.cwd(), 'reviews.json');
-        try {
-          const data = await fs.readFile(reviewsPath, 'utf-8');
-          testimonials = JSON.parse(data);
-          console.log('API fallback successful, loaded testimonials:', testimonials.length);
-        } catch (prodError) {
-          // Fall back to development reviews file
-          reviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
-          const data = await fs.readFile(reviewsPath, 'utf-8');
-          testimonials = JSON.parse(data);
-          console.log('API fallback successful, loaded testimonials:', testimonials.length);
-        }
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-      }
     }
   } catch (error) {
-    console.error('Error fetching testimonials:', error);
-    // Fallback to direct file read
+    console.error('API fetch failed, using fallback:', error);
+  }
+
+  // Fallback to file system if API fails or returns empty
+  if (!testimonials.length) {
     try {
       const fs = await import('fs/promises');
       const path = await import('path');
 
-      // Try production reviews file first
-      let reviewsPath = path.join(process.cwd(), 'reviews.json');
+      // Try production file first, then development file
+      const reviewsPath = path.join(process.cwd(), 'reviews.json');
+      const devReviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
+
       try {
         const data = await fs.readFile(reviewsPath, 'utf-8');
         testimonials = JSON.parse(data);
-        console.log('Production fallback successful, loaded testimonials:', testimonials.length);
-      } catch (prodError) {
-        // Fall back to development reviews file
-        reviewsPath = path.join(process.cwd(), 'src/lib/reviews.json');
-        const data = await fs.readFile(reviewsPath, 'utf-8');
+      } catch {
+        const data = await fs.readFile(devReviewsPath, 'utf-8');
         testimonials = JSON.parse(data);
-        console.log('Development fallback successful, loaded testimonials:', testimonials.length);
       }
-    } catch (fallbackError) {
-      console.error('Fallback also failed:', fallbackError);
+    } catch (error) {
+      console.error('File fallback failed:', error);
     }
   }
 
