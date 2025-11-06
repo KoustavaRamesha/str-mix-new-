@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useEffect, useActionState } from 'react';
 import Image from 'next/image';
-import { Phone, Clock, MapPin, Instagram } from 'lucide-react';
+import { Phone, Clock, MapPin, Instagram, Mail } from 'lucide-react';
 import Link from 'next/link';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -245,6 +245,10 @@ export default function ContactPage() {
                                 <div className="flex items-center gap-4">
                                     <Phone className="h-5 w-5 text-accent" />
                                     <a href="tel:09741499909" className="hover:text-primary">09741499909</a>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <Mail className="h-5 w-5 text-accent" />
+                                    <a href="mailto:strmixconcrete@gmail.com" className="hover:text-primary">strmixconcrete@gmail.com</a>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <Clock className="h-5 w-5 text-accent" />
