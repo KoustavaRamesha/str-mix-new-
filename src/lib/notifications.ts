@@ -1,11 +1,13 @@
 import nodemailer from 'nodemailer';
 
-// Initialize nodemailer for reliable email delivery
+// Initialize nodemailer for Resend SMTP delivery
 const emailTransporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.resend.com',
+  port: 587,
+  secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: 'resend', // Resend SMTP username is always 'resend'
+    pass: process.env.RESEND_API_KEY, // Use API key as password
   },
 });
 
@@ -21,11 +23,11 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
   const { name, email, phone, subject, message } = contactData;
 
   try {
-    console.log('Sending email via Gmail SMTP...');
+    console.log('Sending email via Resend SMTP...');
     console.log('To:', process.env.EMAIL_TO || 'contact@strmix.com');
 
     await emailTransporter.sendMail({
-      from: process.env.EMAIL_FROM || 'contactformstrmix@gmail.com',
+      from: 'onboarding@resend.dev', // Use Resend's verified sender
       to: process.env.EMAIL_TO || 'contact@strmix.com',
       subject: `STR MIX Contact Form: ${subject}`,
       html: `
@@ -49,7 +51,7 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
       `,
     });
 
-    console.log('Email sent successfully via Gmail');
+    console.log('Email sent successfully via Resend SMTP');
     return true;
   } catch (error) {
     console.error('Email send failed:', error);
