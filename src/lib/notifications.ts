@@ -25,7 +25,7 @@ if (process.env.RESEND_API_KEY) {
 // Initialize SMTP transporter as fallback
 if (emailService === 'smtp') {
   // Try Gmail with different configuration for better cloud compatibility
-  emailTransporter = nodemailer.createTransporter({
+  emailTransporter = nodemailer.createTransport({
     service: 'gmail', // Use Gmail service instead of manual host/port
     auth: {
       user: process.env.SMTP_USER,
