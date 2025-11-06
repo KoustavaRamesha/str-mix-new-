@@ -1,48 +1,15 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import twilio from 'twilio';
 
-// Email configuration - prefer Resend over SMTP for better reliability
-let emailService: 'resend' | 'smtp' = 'smtp';
-let emailTransporter: any = null;
-let resend: any = null;
+// Email configuration - use Resend for better reliability
+let resend: Resend | null = null;
 
-// Force rebuild trigger - version 1.1
-
-// Check if Resend API key is available (preferred method)
+// Initialize Resend if API key is available
 if (process.env.RESEND_API_KEY) {
   console.log('📧 Using Resend for email delivery');
-  emailService = 'resend';
-  try {
-    // Dynamic import for Resend to avoid issues if not installed
-    resend = { apiKey: process.env.RESEND_API_KEY };
-  } catch (e) {
-    console.log('⚠️ Resend import failed, falling back to SMTP');
-    emailService = 'smtp';
-  }
+  resend = new Resend(process.env.RESEND_API_KEY);
 } else {
-  console.log('📧 Using SMTP for email delivery');
-  emailService = 'smtp';
-}
-
-// Initialize SMTP transporter as fallback
-if (emailService === 'smtp') {
-  // Try Gmail with different configuration for better cloud compatibility
-  emailTransporter = nodemailer.createTransport({
-    service: 'gmail', // Use Gmail service instead of manual host/port
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-    // Add timeout and connection settings for better reliability
-    connectionTimeout: 30000, // 30 seconds (increased)
-    greetingTimeout: 30000,
-    socketTimeout: 30000,
-    // Additional Gmail-specific settings
-    secure: true, // Use SSL
-    tls: {
-      rejectUnauthorized: false // Accept self-signed certificates
-    }
-  });
+  console.log('⚠️ RESEND_API_KEY not found - email functionality disabled');
 }
 
 // SMS configuration - only initialize if credentials are provided
@@ -65,17 +32,21 @@ export interface ContactData {
 
 export async function sendContactEmail(contactData: ContactData): Promise<boolean> {
   try {
-    console.log('🔍 Checking environment variables...');
-    console.log('SMTP_HOST:', process.env.SMTP_HOST ? '✅ Set' : '❌ Missing');
-    console.log('SMTP_USER:', process.env.SMTP_USER ? '✅ Set' : '❌ Missing');
-    console.log('SMTP_PASS:', process.env.SMTP_PASS ? '✅ Set' : '❌ Missing');
+    // Check if Resend is configured
+    if (!resend) {
+      console.log('⚠️ Resend not configured - email functionality disabled');
+      return false;
+    }
+
+    console.log('🔍 Checking Resend configuration...');
+    console.log('RESEND_API_KEY:', process.env.RESEND_API_KEY ? '✅ Set' : '❌ Missing');
     console.log('EMAIL_FROM:', process.env.EMAIL_FROM || 'noreply@strmix.com');
     console.log('EMAIL_TO:', process.env.EMAIL_TO || 'contact@strmix.com');
 
     const { name, email, phone, subject, message } = contactData;
 
-    const mailOptions = {
-      from: process.env.EMAIL_FROM || 'noreply@strmix.com',
+    const emailData = {
+      from: process.env.EMAIL_FROM || 'onboarding@resend.dev', // Use Resend's default sender
       to: process.env.EMAIL_TO || 'contact@strmix.com',
       subject: `STR MIX Contact Form: ${subject}`,
       html: `
@@ -99,13 +70,13 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
       `,
     };
 
-    console.log('📧 Attempting to send email...');
-    await emailTransporter.sendMail(mailOptions);
-    console.log('✅ Contact email sent successfully');
+    console.log('📧 Attempting to send email via Resend...');
+    const result = await resend.emails.send(emailData);
+    console.log('✅ Contact email sent successfully via Resend:', result);
     return true;
   } catch (error) {
     console.error('❌ Failed to send contact email:', error);
-    console.error('Error details:', error.message);
+    console.error('Error details:', error instanceof Error ? error.message : String(error));
     return false;
   }
 }
