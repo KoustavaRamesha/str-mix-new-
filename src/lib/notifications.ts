@@ -24,7 +24,7 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
 
   try {
     console.log('Sending email via Resend SMTP...');
-    console.log('To:', process.env.EMAIL_TO || 'contact@strmix.com');
+    console.log('To: contactformstrmix@gmail.com');
 
     await emailTransporter.sendMail({
       from: 'onboarding@resend.dev', // Use Resend's verified sender
