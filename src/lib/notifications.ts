@@ -28,7 +28,7 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
 
     await emailTransporter.sendMail({
       from: 'onboarding@resend.dev', // Use Resend's verified sender
-      to: process.env.EMAIL_TO || 'contact@strmix.com',
+      to: 'contactformstrmix@gmail.com', // Send to account owner's email for testing
       subject: `STR MIX Contact Form: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
