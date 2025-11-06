@@ -1,15 +1,7 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-// Initialize nodemailer for Resend SMTP delivery
-const emailTransporter = nodemailer.createTransport({
-  host: 'smtp.resend.com',
-  port: 587,
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: 'resend', // Resend SMTP username is always 'resend'
-    pass: process.env.RESEND_API_KEY, // Use API key as password
-  },
-});
+// Initialize Resend API client
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export interface ContactData {
   name: string;
@@ -20,15 +12,20 @@ export interface ContactData {
 }
 
 export async function sendContactEmail(contactData: ContactData): Promise<boolean> {
+  if (!resend) {
+    console.error('Resend not configured');
+    return false;
+  }
+
   const { name, email, phone, subject, message } = contactData;
 
   try {
-    console.log('Sending email via Resend SMTP...');
+    console.log('Sending email via Resend API...');
     console.log('To: contactformstrmix@gmail.com');
 
-    await emailTransporter.sendMail({
-      from: 'onboarding@resend.dev', // Use Resend's verified sender
-      to: 'contactformstrmix@gmail.com', // Send to contact form email
+    await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: 'contactformstrmix@gmail.com',
       subject: `STR MIX Contact Form: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -51,7 +48,7 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
       `,
     });
 
-    console.log('Email sent successfully via Resend SMTP');
+    console.log('Email sent successfully via Resend API');
     return true;
   } catch (error) {
     console.error('Email send failed:', error);
