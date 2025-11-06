@@ -1,7 +1,13 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-// Initialize Resend for email delivery
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+// Initialize nodemailer for reliable email delivery
+const emailTransporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 export interface ContactData {
   name: string;
@@ -12,19 +18,14 @@ export interface ContactData {
 }
 
 export async function sendContactEmail(contactData: ContactData): Promise<boolean> {
-  if (!resend) {
-    console.error('Resend not initialized - check API key');
-    return false;
-  }
-
   const { name, email, phone, subject, message } = contactData;
 
   try {
-    console.log('Attempting to send email via Resend...');
+    console.log('Sending email via Gmail SMTP...');
     console.log('To:', process.env.EMAIL_TO || 'contact@strmix.com');
 
-    const result = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+    await emailTransporter.sendMail({
+      from: process.env.EMAIL_FROM || 'contactformstrmix@gmail.com',
       to: process.env.EMAIL_TO || 'contact@strmix.com',
       subject: `STR MIX Contact Form: ${subject}`,
       html: `
@@ -48,11 +49,10 @@ export async function sendContactEmail(contactData: ContactData): Promise<boolea
       `,
     });
 
-    console.log('Resend API response:', result);
+    console.log('Email sent successfully via Gmail');
     return true;
   } catch (error) {
     console.error('Email send failed:', error);
-    console.error('Error details:', error instanceof Error ? error.message : String(error));
     return false;
   }
 }
